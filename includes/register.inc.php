@@ -14,6 +14,8 @@ include "../includes/functions.inc.php";
 if(checkUsername($username, $conn)){
     header("location: ../views/register.php?error=usernametaken");
 }
+
+
 if(checkEmail($email, $conn)){
     header("location: ../views/register.php?error=emailtaken");
 }
@@ -21,6 +23,14 @@ if(checkEmail($email, $conn)){
 
 if(checkUsername($username, $conn)&&(checkEmail($email, $conn))){
     header("location: ../views/register.php?error=userexists");
+}
+if(!checkUsername($username, $conn)){
+    
+    if(!checkEmail($email, $conn)){
+
+    $pwd_hash = password_hash($pass, PASSWORD_BCRYPT);
+    createUser($username, $email, $pwd_hash, $conn);
+    }
 }
 
 

@@ -22,3 +22,17 @@ function checkEmail($email, $conn){
         return false;
 }
 
+
+function createUser($username, $email, $pwd_hash, $conn){
+    $sql = "INSERT INTO `users`( `username`, `email`, `userPwd`) VALUES ('$username', '$email', '$pwd_hash')";
+    if(mysqli_query($conn,  $sql)){
+        header("location: ../views/login.php");
+        exit();
+    }else{
+        echo "NIOE DZIALA";
+    }
+}
+
+function checkUserPwd(){
+    
+}
