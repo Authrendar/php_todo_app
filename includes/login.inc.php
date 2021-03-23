@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 
 if(isset($_POST['submit'])){
 
@@ -15,13 +16,24 @@ if(isset($_POST['submit'])){
 
     if(!checkUsername($username, $conn)){
         header("location: ../views/login.php?error=invalidusername");
+        exit();
     }
 
     if(!checkEmail($email, $conn)){
         header("location: ../views/login.php?error=invalidemail");
+        exit();
     }
 
--
+    if(checkUserPwd($username, $email, $pass, $conn)){
+        header("location: ../index.php");
+        exit();
+    }else{
+        header("location: ../views/login.php?error=invalidpass");
+        exit();
+    }
+
+
 }else{
     header("location: ../index.php");
+    exit();
 }
